@@ -1,0 +1,144 @@
+package com.raptrx.still.utils
+
+import android.content.Context
+import android.content.pm.LauncherApps
+import android.os.Process
+import android.os.UserManager
+import com.raptrx.still.data.entities.AppInfoEntity
+import com.raptrx.still.data.entities.AppItemType
+import com.raptrx.still.ui.entities.AppInfo
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+
+class AppUtils @Inject constructor(
+    @ApplicationContext
+    private val context: Context
+) {
+    fun getInstalledApps(): List<InstalledApp> {
+        val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
+        val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
+
+        val selfPackageName = context.packageName
+
+        val installedApps = mutableListOf<InstalledApp>()
+
+        for (profile in userManager.userProfiles) {
+            val activities = launcherApps.getActivityList(null, profile)
+            for (activity in activities) {
+                val appName = activity.label.toString()
+                val appPackageName = activity.componentName.packageName
+                val appClassName = activity.componentName.className
+
+                /*
+                * Ignore the self package name.
+                * Add all user apps to the list.
+                * */
+                if (appPackageName.contains(selfPackageName, true).not()) {
+                    installedApps.add(
+                        InstalledApp(
+                            appName = appName,
+                            packageName = appPackageName,
+                            className = appClassName,
+                            userHandle = profile.hashCode()
+                        )
+                    )
+                }
+            }
+        }
+
+        return installedApps
+    }
+
+    fun getInstalledApps(packageName: String, userHandle: Int): List<InstalledApp> {
+        val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
+        val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
+        val profile = userManager.userProfiles.find { it.hashCode() == userHandle }
+        if (profile == null) return emptyList()
+
+        val selfPackageName = context.packageName
+
+        val installedApps = mutableListOf<InstalledApp>()
+
+        val activities = launcherApps.getActivityList(packageName, profile)
+        for (activity in activities) {
+            val appName = activity.label.toString()
+            val appPackageName = activity.componentName.packageName
+            val appClassName = activity.componentName.className
+
+            /*
+            * Ignore the self package name.
+            * Add all user apps to the list.
+            * */
+            if (appPackageName.contains(selfPackageName, true).not()) {
+                installedApps.add(
+                    InstalledApp(
+                        appName = appName,
+                        packageName = appPackageName,
+                        className = appClassName,
+                        userHandle = profile.hashCode()
+                    )
+                )
+            }
+        }
+
+        return installedApps
+    }
+
+    fun mapToAppInfo(
+        entities: List<AppInfoEntity>,
+        notificationDots: List<NotificationDot> = emptyList()
+    ): List<AppInfo> {
+        val myUserHandle = getMyUserHandle()
+        return entities.map {
+            it.toAppInfo(
+                myUserHandle = myUserHandle,
+                showNotificationDot = it.itemType == AppItemType.APP &&
+                        notificationDots.any { notificationDot ->
+                            notificationDot.packageName == it.packageName &&
+                                    notificationDot.userHandle == it.userHandle
+                        }
+            )
+        }
+    }
+
+    fun getAppsWithSearch(
+        searchText: String,
+        apps: List<AppInfo>,
+        searchMode: SearchMode
+    ): List<AppInfo> {
+        if (searchText.isBlank()) return apps
+
+        val matchesSearch = StringUtils.appSearchMatcher(searchText, searchMode)
+        return apps.filter { appInfo -> matchesSearch(appInfo.name) }
+    }
+
+    private fun AppInfoEntity.toAppInfo(myUserHandle: Int, showNotificationDot: Boolean): AppInfo {
+        return AppInfo(
+            packageName = packageName,
+            itemType = itemType,
+            targetId = targetId,
+            userHandle = userHandle,
+            appName = appName,
+            alternateAppName = alternateAppName,
+            isFavourite = isFavourite,
+            isHidden = isHidden,
+            isWorkProfile = userHandle != myUserHandle,
+            showNotificationDot = showNotificationDot,
+            orderIndex = orderIndex,
+            launchDelaySeconds = launchDelaySeconds,
+            folderId = folderId
+        )
+    }
+
+    private fun getMyUserHandle() = Process.myUserHandle().hashCode()
+}
+
+data class InstalledApp(
+    val appName: String,
+    val packageName: String,
+    val className: String,
+    val userHandle: Int
+) {
+    val id: String
+        get() = "${AppItemType.APP.persistedValue}|$packageName|$className|$userHandle"
+}

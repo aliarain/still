@@ -1,0 +1,91 @@
+package com.raptrx.still.ui.settings.customisation
+
+import com.raptrx.still.data.CustomFont
+import com.raptrx.still.ui.theme.ThemeMode
+import com.raptrx.still.utils.AppIconAlignment
+import com.raptrx.still.utils.Constants
+import com.raptrx.still.utils.FastScrollerAlignment
+import com.raptrx.still.utils.HomeAppsAlignmentHorizontal
+import com.raptrx.still.utils.HomeAppsAlignmentVertical
+import com.raptrx.still.utils.HomeClockAlignment
+import com.raptrx.still.utils.HomeClockMode
+import com.raptrx.still.utils.HomeDateFormat
+import com.raptrx.still.utils.IconPackOption
+import com.raptrx.still.utils.StillSettingsPosition
+import com.raptrx.still.utils.ScreenOrientation
+import com.raptrx.still.utils.SearchMode
+
+data class CustomisationState(
+    val initialLoaded: Boolean = false,
+    val themeMode: ThemeMode? = null,
+    val iconPack: String = "",
+    val iconPacks: List<IconPackOption> = emptyList(),
+    val loadingIconPacks: Boolean = true,
+    val fontPreference: String = "",
+    val customFonts: List<CustomFont> = emptyList(),
+    val importingFont: Boolean = false,
+    val fontError: Int? = null,
+    val screenOrientation: ScreenOrientation = ScreenOrientation.Portrait,
+    val homeAppsAlignmentHorizontal: HomeAppsAlignmentHorizontal? = null,
+    val drawerAppsAlignmentHorizontal: HomeAppsAlignmentHorizontal? = null,
+    val homeAppsAlignmentVertical: HomeAppsAlignmentVertical? = null,
+    val homeClockAlignment: HomeClockAlignment? = null,
+    val showHomeClock: Boolean = false,
+    val homeTimeTextSize: Int? = null,
+    val homeDateTextSize: Int? = null,
+    val homeTimeFont: String? = null,
+    val homeDateFormat: HomeDateFormat = HomeDateFormat.Default,
+    val showStatusBar: Boolean = true,
+    val showNavigationBar: Boolean = true,
+    val homeTextSize: Float = Constants.DEFAULT_HOME_TEXT_SIZE.toFloat(),
+    val autoOpenKeyboardAllApps: Boolean = false,
+    val dynamicTheme: Boolean = false,
+    val blackTheme: Boolean = false,
+    val setWallpaperToThemeColor: Boolean = false,
+    val enableWallpaper: Boolean = false,
+    val enableWallpaperOnDrawer: Boolean = false,
+    val homeClockMode: HomeClockMode? = null,
+    val doubleTapToLock: Boolean = false,
+    val twentyFourHourFormat: Boolean = false,
+    val showBatteryLevel: Boolean = false,
+    val showHiddenAppsInSearch: Boolean = true,
+    val drawerSearchBarAtBottom: Boolean = false,
+    val showAppIconInHome: Boolean = false,
+    val showAppIconInDrawer: Boolean = false,
+    val homeAppIconAlignment: AppIconAlignment = AppIconAlignment.Left,
+    val drawerAppIconAlignment: AppIconAlignment = AppIconAlignment.Left,
+    val appIconSizePercent: Float = Constants.DEFAULT_APP_ICON_SIZE_PERCENT.toFloat(),
+    val applyHomeAppSizeToAllApps: Boolean = false,
+    val autoOpenApp: Boolean = false,
+    val notificationDot: Boolean = false,
+    val homeAppVerticalPadding: Float = Constants.DEFAULT_HOME_VERTICAL_PADDING.toFloat(),
+    val ignoreSpecialCharacters: String = "",
+    val searchMode: SearchMode = SearchMode.Contains,
+    val searchBarBackground: Boolean = false,
+    val searchBarBorderPercent: Float = Constants.DEFAULT_SEARCH_BAR_BORDER_PERCENT.toFloat(),
+    val hideAppDrawerSearch: Boolean = false,
+    val hideSettingsIcon: Boolean = false,
+    val showScreenTimeWidget: Boolean = false,
+    val lightTextOnWallpaper: Boolean = true,
+    val dimWallpaper: Boolean = false,
+    val dimWallpaperPercentage: Float = Constants.DEFAULT_DIM_WALLPAPER_PERCENTAGE.toFloat(),
+    val clockAppPreference: String = "",
+    val clockAppName: String = "",
+    val batteryAppPreference: String = "",
+    val batteryAppName: String = "",
+    val calendarAppPreference: String = "",
+    val calendarAppName: String = "",
+    val screenTimeAppPreference: String = "",
+    val screenTimeAppName: String = "",
+    val swipeLeftAppPreference: String = "",
+    val swipeLeftAppName: String = "",
+    val swipeRightAppPreference: String = "",
+    val swipeRightAppName: String = "",
+    val minimoSettingsPosition: StillSettingsPosition = StillSettingsPosition.Auto,
+    val keyboardOpenDelay: Long = Constants.DEFAULT_KEYBOARD_OPEN_DELAY,
+    val enableFastScroller: Boolean = false,
+    val fastScrollerAlignment: FastScrollerAlignment = FastScrollerAlignment.Right,
+    val backOpensAppDrawer: Boolean = true,
+    val compactAppTouchArea: Boolean = false,
+    val keyboardDoneOpensFirstApp: Boolean = false
+)
