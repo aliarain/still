@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Still mark: a dot held in balance above a line.
-  Drawn on the 108x108 adaptive-icon grid. The mark measures 50x36.5 and is
-  centred on (54,54), so it stays inside the 66dp safe zone and no launcher
-  mask can clip it.
+  Still mark: a single S stroke.
+  Drawn on the 108x108 adaptive-icon grid. The stroke spans x 37.5-70.5 and
+  y 25-83 including its 6.6 cap, centred on (54,54), so it stays inside the
+  66dp safe zone and no launcher mask can clip it.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Dot: centre (54,46), radius 10.5, drawn as two half arcs. -->
     <path
-        android:fillColor="#F5F5F5"
-        android:pathData="M54,35.5 A10.5,10.5 0 0,1 54,56.5 A10.5,10.5 0 0,1 54,35.5 Z" />
-    <!-- Line: x 29-79, y 66-72, fully rounded ends. -->
-    <path
-        android:fillColor="#F5F5F5"
-        android:pathData="M32,66 H76 A3,3 0 0,1 79,69 A3,3 0 0,1 76,72 H32 A3,3 0 0,1 29,69 A3,3 0 0,1 32,66 Z" />
+        android:pathData="M40.8,79.7 C40.8,79.7 67.2,79.7 67.2,65.2 C67.2,50.7 40.8,50.7 40.8,38.8 C40.8,28.3 60.6,28.3 67.2,33.6"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="6.6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
 </vector>

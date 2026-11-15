@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -161,6 +162,9 @@ private fun SampleAppIcon(size: Dp) {
         Icon(
             painter = painterResource(R.drawable.ic_still_mark),
             contentDescription = null,
+            // The mark is taller than it is wide, so fit it inside the icon box
+            // rather than letting the painter's intrinsic size decide.
+            modifier = Modifier.fillMaxSize(0.55f),
             tint = MaterialTheme.colorScheme.onPrimaryContainer
         )
     }

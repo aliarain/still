@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -123,7 +124,12 @@ private fun StillAppIcon(size: Dp) {
         Image(
             painter = painterResource(R.drawable.ic_still_mark),
             contentDescription = null,
-            modifier = Modifier.fillMaxSize()
+            // Fit rather than fill: the mark is tall and narrow, so scaling it
+            // to the box would stretch the stroke.
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(size * 0.22f)
         )
     }
 }
