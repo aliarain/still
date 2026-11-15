@@ -159,7 +159,7 @@ private fun SampleAppIcon(size: Dp) {
         contentAlignment = Alignment.Center
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_launcher_foreground),
+            painter = painterResource(R.drawable.ic_still_mark),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onPrimaryContainer
         )

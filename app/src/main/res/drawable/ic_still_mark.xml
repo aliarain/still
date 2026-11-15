@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The Still mark drawn tight to its own bounds, for use as a UI sample icon.
+  The adaptive-icon foreground reserves safe-zone padding, so it looks
+  undersized when painted into a small box; this variant has none.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="50dp"
+    android:height="36.5dp"
+    android:viewportWidth="50"
+    android:viewportHeight="36.5">
+    <!-- Dot: centre (25,10.5), radius 10.5, drawn as two half arcs. -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M25,0 A10.5,10.5 0 0,1 25,21 A10.5,10.5 0 0,1 25,0 Z" />
+    <!-- Line: x 0-50, y 30.5-36.5, fully rounded ends. -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M3,30.5 H47 A3,3 0 0,1 50,33.5 A3,3 0 0,1 47,36.5 H3 A3,3 0 0,1 0,33.5 A3,3 0 0,1 3,30.5 Z" />
+</vector>

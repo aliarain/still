@@ -121,7 +121,7 @@ private fun StillAppIcon(size: Dp) {
             .background(Color.Black)
     ) {
         Image(
-            painter = painterResource(R.drawable.ic_launcher_foreground),
+            painter = painterResource(R.drawable.ic_still_mark),
             contentDescription = null,
             modifier = Modifier.fillMaxSize()
         )
